@@ -1,0 +1,183 @@
+* {
+  margin: 0;
+  z-index: 1;
+  font-family: 'Lato', 'Helvetica';
+}
+
+h1 {
+
+}
+
+h2.h2 {
+  font-size: 22px;
+}
+
+p {
+  color: rgb(87, 87, 87);
+}
+
+.primary-font-family {
+  font-family: "Kaushan Script", 'cursive';
+}
+
+.secondary-font-family {
+  font-family: 'Lato', 'Helvetica';
+}
+
+.bgc-white {
+  background-color: #FFF;
+}
+
+.bgc-light-grey {
+  background-color: #F6F6F6;
+}
+
+.green {
+  color: rgb(64, 103, 29);
+}
+
+.image-circle {
+  border-radius: 50%;
+}
+
+.a {
+  font-size: 33px;
+}
+
+.b {
+  font-size: 46px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  text-align: center;
+}
+
+nav {
+  position: relative;
+  z-index: 1000;
+  height: 100px;
+  background-color: rgba(64, 103, 29, 0.9);
+  color: #FFF;
+}
+
+nav > .container-fluid, nav > .container-fluid > .row {
+  height: 100%;
+}
+
+nav .row .col-md-6:first-child {
+  /*transform: translateY(50%);*/
+  padding-top: 25px;
+}
+
+nav .row .col-md-6:nth-child(2) {
+  padding-top: 40px;
+}
+
+section.hero {
+  position: relative;
+  width: 100%;
+  height: 700px;
+}
+
+section.hero > .container-fluid {
+  position: absolute;
+  top: -100px;
+}
+
+section.hero .overlaped-circle-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 450px;
+  height: 450px;
+}
+
+div#hero-img-1 {
+  background-image: url('../../images/cr=w_1000,h_800,a_cc.webp');
+  background-position: center;
+  background-size: cover;
+  height: 700px;
+  width: 100%;
+}
+
+div#hero-img-2 {
+  background-image: url('../../images/cr=w_1000,h_800,a_cc.jpg');
+  height: 700px;
+  width: 100%;
+}
+
+section.about-us,
+section.contact-us {
+  position: relative;
+  padding-bottom: 70px;
+}
+
+section.about-us h1,
+section.contact-us h1 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 30px;
+}
+
+section.contact-us {
+  background-color: #F6F6F6;
+  padding-top: 80px;
+}
+
+.heading-line::before {
+  border-top: 1px solid rgb(64, 103, 29);
+  content: "";
+  margin: 0 auto;
+  /* this centers the line to the full width specified */
+  position: absolute;
+  /* positioning must be absolute here, and relative positioning must be applied to the parent */
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.heading-line span {
+  /* to hide the lines from behind the text, you have to set the background color the same as the container */
+  padding: 0 15px;
+}
+
+section.about-us .row [class^="col-"] img {
+  margin-bottom: 30px;
+}
+
+section.about-us .row [class^="col-"] h2 {
+  margin-bottom: 20px;
+}
+
+.btn.btn-primary.btn-submit-form {
+   font-size: 14px;
+   border-radius: 100px;
+   padding: 8px 30px;
+   background-color: #406826;
+   font-weight: 700;
+   border: 2px solid #406826;
+   text-transform: uppercase;
+   letter-spacing: 1px;"
+}
+
+.btn.btn-primary.btn-submit-form:hover {
+   background-color: rgb(73, 116, 34);
+   border-color: rgb(73, 116, 34);
+   cursor: pointer;
+}
+
+footer {
+  height: 80px;
+  background-color: rgb(17, 17, 17);
+  color: #FFF;
+  /*margin-top: 50px;*/
+  padding-top: 30px;
+}
