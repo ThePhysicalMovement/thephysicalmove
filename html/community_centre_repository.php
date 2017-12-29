@@ -4,11 +4,11 @@
   <!-- Meta -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="apple-touch-icon" sizes="152x152" href="../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5">
   <meta name="theme-color" content="#ffffff">
 
   <!-- Fonts -->
@@ -116,7 +116,11 @@
               <td><?php echo $row["Name"] ?></td>
               <td><?php echo $row["Address"] ?></td>
               <td><?php echo "", (strlen($row["PhoneNumber"]) == 0 ? "N/A" : $row["PhoneNumber"]) ?></td>
-              <td class="text-center"><a href=""><i class="fa fa-plus-circle"></i></a></td>
+              <td class="text-center">
+                <a href="community_centre_details.php?id=<?php echo $row['CommunityCentre_Id'] ?>">
+                  <i class="fa fa-plus-circle"></i>
+                </a>
+              </td>
             </tr>
           <?php endwhile ?>
 
