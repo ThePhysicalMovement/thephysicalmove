@@ -1,69 +1,4 @@
-<!DOCTYPE html>
-<html class="skrollr skrollr-desktop">
-<head>
-  <!-- Meta -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="apple-touch-icon" sizes="152x152" href="../apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-  <link rel="manifest" href="../manifest.json">
-  <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="theme-color" content="#ffffff">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="../css/own/thephysicalmovement.css" />
-  <link rel="stylesheet" href="../css/bootstrap4/bootstrap.min.css" />
-  <link rel="stylesheet" href="../css/animate.css" />
-
-  <!-- JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.js"></script>
-  <script src="../js/bootstrap4/bootstrap.min.js"></script>
-  <script src="../js/own/thephysicalmovement.js"></script>
-
-  <!-- Parallax Lib -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
-</head>
-<body>
-  <div class="navbar-wrapper fixed-top">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg">
-          <a class="navbar-brand" href="#">So-PhyZ</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse navigation-wrapper" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="homepage.php">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="community_centre_repository.php">Community Center Repository</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contactPage.html">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="aboutPage.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="loginPage.html">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="signupPage.html">Sign-up</a>
-              </li>
-            </ul>
-          </div>
-      </nav>
-    </div>
-  </div>
+  <?php require('../include/header.php') ?>
 
   <section class="recreation-centres">
     <div class="container">
@@ -149,16 +84,4 @@
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <p>Copyright &copy; 2017 So-PhyZ - All Rights Reserved.</p>
-    </div>
-  </footer>
-
-  <!-- <script type="text/javascript">
-  	skrollr.init({
-  		smoothScrolling: false
-  	});
-	</script> -->
-
-</body>
+<?php require('../include/footer2.php') ?>

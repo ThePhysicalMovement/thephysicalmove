@@ -39,4 +39,4 @@ ALTER TABLE `Program`
 --
 ALTER TABLE `Program`
   ADD CONSTRAINT `program_ibfk_1` FOREIGN KEY (`CommunityCentre_Id`) REFERENCES `communitycentre` (`CommunityCentre_Id`),
-  ADD CONSTRAINT `program_ibfk_2` FOREIGN KEY (`ProgramType_Id`) REFERENCES `ProgramType` (`ProgramType_Id`);
+  ADD CONSTRAINT `program_ibfk_2` FOREIGN KEY (`ProgramType_Id`) REFERENCES `programtype` (`ProgramType_Id`);
