@@ -4,6 +4,13 @@ $( document ).ready(function() {
   if ($('#accordion')[0] != undefined) {
     accordion();
   }
+
+  if (typeof(localStorage.username) != 'undefined'
+    && typeof(localStorage.password) != 'undefined') {
+      document.getElementById('login-user').value = localStorage.username;
+      document.getElementById('login-password').value = localStorage.password;
+      document.getElementById('remember-me').checked = true;
+  }
 });
 
 function filterTable(input, table) {
@@ -51,7 +58,14 @@ function accordion() {
 }
 
 function authenticate(ev) {
+  // Prevent form submission
   ev.preventDefault();
+
+  // Verify if user want to be remembered and save the information in localStorage
+  if (!document.getElementById('remember-me').checked) {
+    localStorage.clear();
+  }
+
   authenticateAjax();
 }
 
@@ -60,6 +74,12 @@ function authenticateAjax() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == 'true') {
+        // Verify if user want to be remembered and save the information in localStorage
+        if (document.getElementById('remember-me').checked) {
+          localStorage.username = document.getElementById('login-user').value;
+          localStorage.password = document.getElementById('login-password').value;
+        }
+
         window.location.reload();
       }
       else {
@@ -123,6 +143,8 @@ function logout() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
+      var base = document.getElementsByTagName('base')[0];
+      window.location.replace((base.href + 'homepage.php'));
     }
   };
   xhttp.open("POST", "../php/logout.php", true);

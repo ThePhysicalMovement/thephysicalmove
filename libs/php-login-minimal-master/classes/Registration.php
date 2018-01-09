@@ -52,9 +52,9 @@ class Registration
             $this->errors[] = "Username does not fit the name scheme: only a-Z and numbers are allowed, 3 to 64 characters";
         } elseif (strlen($_POST['user_email']) > 64) {
             $this->errors[] = "Email cannot be longer than 64 characters";
-        } elseif (strlen($_POST['user_phone']) > 20 || strlen($_POST['user_phone']) < 10) {
-            $this->errors[] = "Phone number cannot be shorter than 10 or longer than 20 characters";
-        } elseif (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
+        } elseif (strlen($_POST['user_phone']) > 20) {
+            $this->errors[] = "Phone number cannot be longer than 20 characters";
+        } elseif (!empty($_POST['user_email']) && !filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
             $this->errors[] = "Your email address is not in a valid email format";
         } elseif (!empty($_POST['user_name'])
             && strlen($_POST['user_fullname']) <= 255
@@ -64,8 +64,7 @@ class Registration
             && preg_match('/^[a-z\d]{3,64}$/i', $_POST['user_name'])
             && strlen($_POST['user_email']) <= 64
             && strlen($_POST['user_phone']) <= 20
-            && strlen($_POST['user_phone']) >= 10
-            && filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)
+            && (empty($_POST['user_email']) || filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL))
             && !empty($_POST['user_password_new'])
             && !empty($_POST['user_password_repeat'])
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])

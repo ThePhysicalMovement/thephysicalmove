@@ -1,5 +1,6 @@
 <?php
 require('../php/functions.php');
+require('../config/db.php');
 
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
@@ -11,7 +12,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 }
 
 // include the configs / constants for the database connection
-require_once("../libs/php-login-minimal-master/config/db.php");
+// require_once("../libs/php-login-minimal-master/config/db.php");
 // load the login class
 require_once("../libs/php-login-minimal-master/classes/Login.php");
 // create a login object. when this object is created, it will do all login/logout stuff automatically
@@ -31,6 +32,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
 <!DOCTYPE html>
 <html class="skrollr skrollr-desktop">
 <head>
+  <base href="http://localhost/projects/ThePhysicalMovement/views/">
   <!-- Meta -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -80,12 +82,12 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
               <li class="nav-item <?php if ( $filename == "community_centre_repository" ||  $filename == "community_centre_details") : ?>active<?php endif ?>">
                 <a class="nav-link" href="community_centre_repository.php">Community Center Repository <?php if ( $filename == "community_centre_repository" ) : ?><span class="sr-only">(current)</span><?php endif ?></a>
               </li>
-              <li class="nav-item <?php if ( $filename == "community_centre_repository.php" ) : ?>active<?php endif ?>">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="contactPage.html">Contact</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="aboutPage.html">About</a>
-              </li>
+              </li> -->
               <?php if ( !$login->isUserLoggedIn() ) : ?>
               <li class="nav-item">
                 <a class="nav-link" href="loginPage.html" data-toggle="modal" data-target="#loginModalCenter">Log in</a>
@@ -103,8 +105,13 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
             <div class="dropdown show">
               <a class="dropdown-toggle" href="#" role="button" id="profile-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></a>
               <div class="dropdown-menu" aria-labelledby="profile-link">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
+                <div id="user-information" class="dropdown-item">
+                  <h5>Profile information</h5>
+                  <p><?php echo 'David Fontes' ?></p>
+                  <p><?php echo 'daveTheMan' ?></p>
+                  <p><?php echo 'random@emailfor.you' ?></p>
+                  <p><?php echo '987 876-1234' ?></p>
+                </div>
                 <div class="dropdown-divider" href="#"></div>
                 <a class="dropdown-item" href="" onclick="logout()">Log out</a>
               </div>
@@ -119,7 +126,14 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
     <div class="modal-style modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="row">
-          <div class="col-md-5 left-pane"><span>Welcome back</span> <span>to</span> <span>So-PhyZ</span></div>
+          <div class="col-md-5 left-pane">
+            <span>Welcome back</span>
+            <span>to</span>
+            <span>So-PhyZ</span>
+            <img class="top" src="../images/AlphaTenis.png" />
+            <img class="left" src="../images/AlphaBasket.png" />
+            <img class="bottom" src="../images/AlphaRugby.png" />
+          </div>
           <div class="col-md-7">
             <form id="login-form" onsubmit="authenticate(event)" autocomplete="off">
               <div class="modal-header">
@@ -139,7 +153,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
                   <label id="wrong-login"></label>
                 </div>
                 <div class="row">
-                  <div class="col-md-6"><input type="checkbox" />&emsp;Remember me?</div>
+                  <div class="col-md-6"><input id="remember-me" type="checkbox" />&emsp;Remember me?</div>
                   <div class="col-md-6"><a href="" class="form-links pink"><p><strong>Forgot your password?</strong></p></a></div>
                 </div>
               </div>
@@ -158,7 +172,14 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
     <div class="modal-style modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="row">
-          <div class="col-md-5 left-pane"><span>Welcome</span> <span>to</span> <span>So-PhyZ</span></div>
+          <div class="col-md-5 left-pane signup">
+            <span>Welcome</span>
+            <span>to</span>
+            <span>So-PhyZ</span>
+            <img class="top" src="../images/AlphaTenis.png" />
+            <img class="left" src="../images/AlphaBasket.png" />
+            <img class="bottom" src="../images/AlphaRugby.png" />
+          </div>
           <div class="col-md-7">
             <form id="signup-form" onsubmit="register(event)" autocomplete="off">
               <div class="modal-header">

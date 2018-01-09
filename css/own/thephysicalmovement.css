@@ -468,6 +468,32 @@ label#wrong-signup {
   color: #F39C5B;
 }
 
+#user-information p {
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+}
+
+#user-information p:last-of-type {
+  margin-bottom: 0;
+}
+
+.modal .left-pane img.top {
+  position: absolute;
+  top: 0;
+  right: 25px;
+}
+
+.modal .left-pane img.left {
+  position: absolute;
+  left: 0;
+}
+
+.modal .left-pane img.bottom {
+  position: absolute;
+  bottom: 0;
+  right: -15px;
+}
+
 a.dropdown-toggle::after {
   margin-left: 0.8em;
   vertical-align: 0.5em;
@@ -480,7 +506,7 @@ a.dropdown-toggle::after {
   text-align: center;
 }
 
-.modal-content .left-pane span:first-child {
+.modal-content .left-pane span:first-of-type {
   text-transform: uppercase;
   color: #FFFFFF;
   font-family: "Josefin sans";
@@ -489,14 +515,18 @@ a.dropdown-toggle::after {
   margin-top: 200px;
 }
 
-.modal-content .left-pane span:nth-child(2) {
+.modal-content .left-pane.signup span:first-of-type {
+  margin-top: 250px;
+}
+
+.modal-content .left-pane span:nth-of-type(2) {
   text-transform: uppercase;
   color: #FFFFFF;
   font-family: "Josefin sans";
   display: block;
 }
 
-.modal-content .left-pane span:last-child {
+.modal-content .left-pane span:last-of-type {
   color: #FFFFFF;
   font-family: "Arial Rounded MT";
   font-size: 20px;

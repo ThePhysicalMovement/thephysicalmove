@@ -1,10 +1,10 @@
   <?php require('../include/header.php'); ?>
 
   <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $database = "thephysicalmovement";
+  $servername = DB_HOST;
+  $database   = DB_NAME;
+  $username   = DB_USER;
+  $password   = DB_PASS;
 
   // // checking for minimum PHP version
   // if (version_compare(PHP_VERSION, '5.3.7', '<')) {
@@ -223,4 +223,4 @@
     </div>
   </section>
 
-<?php require '../include/footer2.php' ?>
+<?php require '../include/footer.php' ?>

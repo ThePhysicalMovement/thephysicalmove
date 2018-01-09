@@ -15,10 +15,10 @@
       </div>
 
       <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "thephysicalmovement";
+        $servername = DB_HOST;
+        $database   = DB_NAME;
+        $username   = DB_USER;
+        $password   = DB_PASS;
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $database);
@@ -84,4 +84,4 @@
     </div>
   </section>
 
-<?php require('../include/footer2.php') ?>
+<?php require('../include/footer.php') ?>

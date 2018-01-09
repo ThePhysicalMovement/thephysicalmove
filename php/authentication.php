@@ -1,4 +1,5 @@
 <?php
+require_once('../config/db.php');
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
@@ -8,7 +9,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 }
 
 // include the configs / constants for the database connection
-require_once("../libs/php-login-minimal-master/config/db.php");
+// require_once("../libs/php-login-minimal-master/config/db.php");
 // load the login class
 require_once("../libs/php-login-minimal-master/classes/Login.php");
 
