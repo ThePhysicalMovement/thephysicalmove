@@ -6,34 +6,6 @@
   $username   = DB_USER;
   $password   = DB_PASS;
 
-  // // checking for minimum PHP version
-  // if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-  //     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
-  // } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-  //     // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-  //     // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-  //     require_once("../libs/php-login-minimal-master/libraries/password_compatibility_library.php");
-  // }
-  //
-  // // include the configs / constants for the database connection
-  // require_once("../libs/php-login-minimal-master/config/db.php");
-  // // load the login class
-  // require_once("../libs/php-login-minimal-master/classes/Login.php");
-  // // create a login object. when this object is created, it will do all login/logout stuff automatically
-  // // so this single line handles the entire login process. in consequence, you can simply ...
-  // $login = new Login();
-  // // ... ask if we are logged in here:
-  // if ($login->isUserLoggedIn() == true) {
-  //     // the user is logged in. you can do whatever you want here.
-  //     // for demonstration purposes, we simply show the "you are logged in" view.
-  //     // include("../libs/php-login-minimal-master/views/logged_in.php");
-  // }
-  // else {
-  //     // the user is not logged in. you can do whatever you want here.
-  //     // for demonstration purposes, we simply show the "you are not logged in" view.
-  //     // include("../libs/php-login-minimal-master/views/not_logged_in.php");
-  // }
-
   // Create connection
   $conn = new mysqli($servername, $username, $password, $database);
 
@@ -60,10 +32,10 @@
   <section class="recreation-centres mb-80">
     <div class="container">
 
-      <h2><?php echo $centre["Name"] ?></h2>
-      <p>
+      <h2><?php echo $centre["Name"] ?>&emsp;<i class="fa fa-star-o" onmouseover="toggleClass('fa-star-o', 'fa-star')" onmouseout="toggleClass('fa-star', 'fa-star-o')"></i></h2>
+      <!--<p>
         Adam Beck Community Centre is a shared use facility. We offer fun filled programs for all ages including birthday parties packages & community special events. Also, there is limited space available for community group & private permits.
-      </p>
+      </p>-->
 
     </div>
   </section>
@@ -104,17 +76,20 @@
 
           <?php
 
-            $program = $programs->fetch_assoc();
-            print_r($program);
-            print("<br />");
-            print("ProgramType = " . $program["Name"] . "<br />");
-            print("Start time = " . get_time($program["StartTime"]) . "<br />");
-            print("Today is " . get_weekday($program["StartDate"]) . "<br />"); // fix if wrong date type
+            // $program = $programs->fetch_assoc();
+            // print_r($program);
+            // print("<br />");
+            // print("ProgramType = " . $program["Name"] . "<br />");
+            // print("Start time = " . get_time($program["StartTime"]) . "<br />");
+            // print("Today is " . get_weekday($program["StartDate"]) . "<br />"); // fix if wrong date type
 
           ?>
 
           <div id="programs-body" class="collapse show" role="tabpanel" aria-labelledby="programs-header" data-parent="#accordion">
             <div class="card-body">
+              <div class="alert alert-primary text-center" role="alert">
+                <strong>Info:</strong> Open until September 3
+              </div>
               <table id="week1" class="table table-striped" style="margin-bottom: 0;">
                 <thead>
                   <tr>
@@ -138,6 +113,15 @@
                     $dom = new DOMDocument();
                     $xpath = new DOMXPath($dom);
                     // $table = new DOMElement('table');
+                    $weekday_number_list = array(
+                      'Sun' => 0,
+                      'Mon' => 1,
+                      'Tue' => 2,
+                      'Wed' => 3,
+                      'Thu' => 4,
+                      'Fri' => 5,
+                      'Sat' => 6
+                    );
 
                     while ($program = $programs->fetch_assoc()) {
                       if ( !in_array($program["Name"], $listed) ) {
@@ -157,13 +141,27 @@
                         for ($i = 0; $i < 7; $i++) {
                           $tr->appendChild($weekday_list[$i]);
                         }
+                        $pos = strpos($program["Name"], "(");
 
-                        $weekday_number_list = array('Sun' => 0, 'Mon' => 1, 'Tue' => 2, 'Wed' => 3, 'Thu' => 4, 'Fri' => 5, 'Sat' => 6);
+                        if ($pos) {
+                          $firstLine = substr($program["Name"], 0, $pos);
+                          $secondLine = substr($program["Name"], $pos);
+                          $thProgram->appendChild(new DOMText($firstLine));
+                          $thProgram->appendChild(new DOMElement('br'));
+                          $span = new DOMElement('span');
+                          $thProgram->appendChild($span);
+                          $span->appendChild(new DOMText($secondLine));
+                        }
+                        else {
+                          $thProgram->appendChild(new DOMText($program["Name"]));
+                        }
+
                         $event_day = get_weekday($program["StartDate"]);
-                        $weekday_list [ $weekday_number_list[$event_day] ]->appendChild(new DOMText(get_time($program["StartTime"]) . " - " . get_time($program["EndTime"])));
+                        $span = new DOMElement('span');
+                        $weekday_list[ $weekday_number_list[$event_day] ]->appendChild($span);
+                        $span->appendChild(new DOMText(get_time($program["StartTime"], true) . " - " . get_time($program["EndTime"])));
+                        $weekday_list[ $weekday_number_list[$event_day] ]->appendChild(new DOMElement('br'));
 
-                        $thProgram->appendChild(new DOMText($program["Name"]));
-                        echo $dom->saveHTML($tr);
                       }
                       else {
                         $elements = $xpath->query('//tr');
@@ -172,22 +170,19 @@
                           $node = $elements->item($i);
 
                           if ($program["Name"] == $node->getElementsByTagName('th')->item(0)->nodeValue) {
-                            print($node->getElementsByTagName('th')->item(0)->nodeValue);
+                            $event_day = get_weekday($program["StartDate"]);
+                            $weekday = $weekday_number_list[$event_day];
+                            $element = $node->getElementsByTagName('td')->item($weekday);
+                            $span = new DOMElement('span');
+                            $element->appendChild($span);
+                            $span->appendChild(new DOMText(get_time($program["StartTime"], true) . " - " . get_time($program["EndTime"])));
+                            $element->appendChild(new DOMElement('br'));
+                            break;
                           }
                         }
                       }
                     }
-                    // echo $dom->getElementsByTagName('tr')->item(0);
-
-                    $xpath = new DOMXPath($dom);
-                    $elements = $xpath->query('//tr');
-
-                    $programs->data_seek(0);
-
-                    // for ($i = 0; $i < $elements->length; $i++) {
-                    //   echo $elements->item($i)->nodeValue . " - " . $elements->item($i)->nodeName . "<br />";
-                    // }
-
+                    echo $dom->saveHTML();
                   ?>
                 </tbody>
               </table>

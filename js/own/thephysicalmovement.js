@@ -108,7 +108,12 @@ function registerAjax() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+      if (this.responseText.length >= 14 && this.responseText.substring(0, 15) == 'Congratulations') {
+        document.getElementById('wrong-signup').style.color = '#518005';
+      }
+      else {
+        document.getElementById('wrong-signup').style.color = '#C42420';
+      }
       document.getElementById('wrong-signup').innerHTML = this.responseText;
     }
   };
@@ -144,7 +149,8 @@ function logout() {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var base = document.getElementsByTagName('base')[0];
-      window.location.replace((base.href + 'homepage.php'));
+      var redirectURL = base.href + 'homepage.php';
+      window.location.replace(redirectURL);
     }
   };
   xhttp.open("POST", "../php/logout.php", true);
@@ -153,4 +159,9 @@ function logout() {
   var str = 'logout=true';
 
   xhttp.send(str);
+}
+
+function toggleClass(classNameRemove, classNameAdd) {
+  $('.' + classNameRemove).toggleClass(classNameAdd);
+  $('.' + classNameRemove).toggleClass(classNameRemove);
 }

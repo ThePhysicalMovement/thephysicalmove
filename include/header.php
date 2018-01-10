@@ -33,6 +33,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
 <html class="skrollr skrollr-desktop">
 <head>
   <base href="http://localhost/projects/ThePhysicalMovement/views/">
+  <title>The Physical Movement</title>
   <!-- Meta -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -154,7 +155,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
                 </div>
                 <div class="row">
                   <div class="col-md-6"><input id="remember-me" type="checkbox" />&emsp;Remember me?</div>
-                  <div class="col-md-6"><a href="" class="form-links pink"><p><strong>Forgot your password?</strong></p></a></div>
+                  <!-- <div class="col-md-6"><a href="" class="form-links pink"><p><strong>Forgot your password?</strong></p></a></div> -->
                 </div>
               </div>
               <div class="modal-footer">
@@ -190,7 +191,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <input id="signup-fullname" class="form-control" type="text" name="full_name" placeholder="Full name" autocomplete="off" pattern=".{3,255}" title="Minimum 3 characters" required />
+                  <input id="signup-fullname" class="form-control" type="text" name="full_name" placeholder="Full name" autocomplete="off" pattern=".{3,255}" title="Minimum 3 characters and maximum 64 characters" required />
                 </div>
                 <div class="form-group">
                   <input id="signup-username" class="form-control" type="text" name="user_password" placeholder="Username" autocomplete="off" pattern=".{3,64}" title="Minimum 3 characters" required />

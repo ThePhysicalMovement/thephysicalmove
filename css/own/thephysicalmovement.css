@@ -58,7 +58,7 @@ nav > div.navigation-wrapper > ul > li {
 }
 
 nav > div.navigation-wrapper > ul > li.active > a {
-  color: #F39C5B;
+  color: #F1B145;
   font-weight: 700;
 }
 
@@ -71,7 +71,7 @@ nav > div.navigation-wrapper > ul > li > a {
 
 nav > div.navigation-wrapper > ul > li > a:hover {
   text-decoration: none;
-  color: #F39C5B;
+  color: #F7B145;
 }
 
 header.hero {
@@ -240,8 +240,33 @@ section.recreation-centres {
   color: #585457;
 }
 
+#programs-body thead > tr > th {
+  font-weight: 500;
+}
+
+#programs-body thead > tr > th:not(:first-child) {
+  border-left: 1px solid #FFFFFF;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#programs-body td {
+  border-left: 1px solid #FFFFFF;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#programs-body td > span {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
 #search-centres {
-  margin-bottom: 60px;
+  margin-top: 30px;
+}
+
+#search-centres .input-group {
+  margin-bottom: 30px;
 }
 
 #search-centres input {
@@ -253,6 +278,8 @@ section.recreation-centres {
   background-color: #F1F1F1;
   border: 1px solid #CED4DA;
   border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 #search-centres input + span > button:hover {
@@ -260,12 +287,12 @@ section.recreation-centres {
 }
 
 #search-centres input + span > button > i {
-  color: #F39C5B;
+  color: #F1B145;
   font-size: 1.5em;
 }
 
 #recreation-centres-table i {
-  color: #F39C5B;
+  color: #ED6B72;
 }
 
 .recreation-centres .floating-images > img {
@@ -361,12 +388,25 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
   background-color: #DAE0EA;
 }
 
-.card table > thead > tr > th {
+.card .card-body .alert {
+  margin-bottom: 0;
   font-size: 14px;
+  padding: 0.5rem 1.25rem;
+}
+
+.card table > thead > tr > th {
+  font-size: 13px;
 }
 
 .card table > tbody > tr > th {
   vertical-align: middle;
+  font-size: 15px;
+}
+
+.card table > tbody > tr > th > span {
+  color: #373d42;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .pink {
@@ -465,7 +505,7 @@ label#wrong-signup {
 }
 
 #profile-link:hover {
-  color: #F39C5B;
+  color: #F1B145;
 }
 
 #user-information p {
@@ -475,6 +515,26 @@ label#wrong-signup {
 
 #user-information p:last-of-type {
   margin-bottom: 0;
+}
+
+#recreation-centres-table tr.favorite {
+  background-color: #FFFFFF;
+  outline: 5px solid #F1B145;
+}
+
+#recreation-centres-table .fa-star,
+.fa-star,
+.fa-star-o {
+  color: #F7B145;
+  font-size: 28px;
+}
+
+#recreation-centres-table .fa-star:hover {
+  cursor:auto;
+}
+
+.fa-star:hover {
+  cursor: pointer;
 }
 
 .modal .left-pane img.top {
