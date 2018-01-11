@@ -28,22 +28,28 @@
             die("Connection to the database failed: " . $conn->connect_error);
         }
 
-        if (isset($_SESSION["user_name"])) {
+        // if (isset($_SESSION["user_name"])) {
+        if ($login->isUserLoggedIn()) {
           $userIdSql = "SELECT `User_Id` FROM `users` WHERE `users`.`user_name` = '" . $_SESSION["user_name"] . "'";
           $userId = $conn->query($userIdSql);
           $userId = $userId->fetch_assoc()["User_Id"];
           $sql = "SELECT * FROM `communitycentre` INNER JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_id` = " . $userId . ";";
-          $favorite = $conn->query($sql);
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0) {
+            $favorite = $result->fetch_assoc();
+          }
+          else {
+            $favorite = false;
+          }
         }
         else {
           $userId = 0;
           $favorite = false;
         }
 
-        $sql = "SELECT * FROM `communitycentre` LEFT JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_id` IS NULL OR `users`.`User_id` != " . $userId . ";";
+        $sql = "SELECT `communitycentre`.`CommunityCentre_Id`, `Name`, `Address`, `PhoneNumber`, `WebsiteURL` FROM `communitycentre` LEFT JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_Id` IS NULL OR `users`.`User_Id` != " . $userId . ";";
         $result = $conn->query($sql);
         $conn->close();
-        // print_r($_SESSION);
       ?>
 
       <table id="recreation-centres-table" class="table table-striped">
@@ -60,14 +66,14 @@
         <?php if ($result->num_rows > 0) : ?>
 
           <?php if ($favorite) : ?>
-            <?php $row = $favorite->fetch_assoc(); ?>
+            <?php //$row = $favorite->fetch_assoc(); ?>
 
             <tr class="favorite">
-              <td><?php echo $row["Name"] ?><i class="fa fa-star pull-right"></i></td>
-              <td><?php echo $row["Address"] ?></td>
-              <td><?php echo "", (strlen($row["PhoneNumber"]) == 0 ? "N/A" : $row["PhoneNumber"]) ?></td>
+              <td><?php echo $favorite["Name"] ?><i class="fa fa-star pull-right"></i></td>
+              <td><?php echo $favorite["Address"] ?></td>
+              <td><?php echo "", (strlen($favorite["PhoneNumber"]) == 0 ? "N/A" : $favorite["PhoneNumber"]) ?></td>
               <td class="text-center">
-                <a href="community_centre_details.php?id=<?php echo $row['CommunityCentre_Id'] ?>">
+                <a href="community_centre_details.php?id=<?php echo $favorite['CommunityCentre_Id'] ?>">
                   <i class="fa fa-plus-circle"></i>
                 </a>
               </td>

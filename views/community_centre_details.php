@@ -17,6 +17,25 @@
   if (isset($_GET['id'])) {
     $centre_id = $_GET['id'];
   }
+  else {
+    // Redirect 404
+
+  }
+
+  if (isset($_SESSION["user_name"])) {
+    $sql = "SELECT `User_Id`, `CommunityCentre_Id` FROM `users` WHERE `users`.`user_name` = '" . $_SESSION["user_name"] . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      $favorite = $result->fetch_assoc()["CommunityCentre_Id"];
+    }
+    else {
+      $favorite = false;
+    }
+  }
+  else {
+    $favorite = false;
+  }
+
   // $sql = "SELECT * FROM `communitycentre` WHERE CommunityCentre_Id = " . $centre_id;
   $sql = "SELECT `communitycentre`.`Name`, `communitycentre`.`Address`, `communitycentre`.`PhoneNumber`, `communitycentre_facility`.`Quantity`, `facility`.`Type` FROM ((`communitycentre_facility` INNER JOIN `communitycentre` ON `communitycentre_facility`.`CommunityCentre_Id` = `communitycentre`.`CommunityCentre_Id`) INNER JOIN `facility` ON `communitycentre_facility`.`Facility_Id` = `facility`.`Facility_Id`)
   WHERE `communitycentre`.`CommunityCentre_Id` = " . $centre_id;
@@ -32,19 +51,56 @@
   <section class="recreation-centres mb-80">
     <div class="container">
 
-      <h2><?php echo $centre["Name"] ?>&emsp;<i class="fa fa-star-o" onmouseover="toggleClass('fa-star-o', 'fa-star')" onmouseout="toggleClass('fa-star', 'fa-star-o')"></i></h2>
+      <h2><?php echo $centre["Name"] ?>
+        <?php if ($login->isUserLoggedIn()) : ?>
+          &emsp;
+          <?php if ($favorite == $centre_id) : ?>
+            <i class="fa fa-star" onclick="unsetFavorite(this, <?php echo $centre_id; ?>)" onmouseover="toggleClass('fa-star', 'fa-star-o')" onmouseout="toggleClass('fa-star-o', 'fa-star')"></i></h2>
+          <?php else : ?>
+            <i class="fa fa-star-o" onclick="setFavorite(this, <?php echo $centre_id; ?>)" onmouseover="toggleClass('fa-star-o', 'fa-star')" onmouseout="toggleClass('fa-star', 'fa-star-o')"></i></h2>
+          <?php endif ?>
+        <?php endif ?>
       <!--<p>
         Adam Beck Community Centre is a shared use facility. We offer fun filled programs for all ages including birthday parties packages & community special events. Also, there is limited space available for community group & private permits.
       </p>-->
 
     </div>
   </section>
-
+  
   <section class="information mb-80">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <img src="http://www.techstrikers.com/GoogleMap/Code/images/google-map-on-click-draw-marker.png" width="100%" />
+          <div id="map" style="height: 300px;" data-address="<?php echo $centre["Address"]; ?>"></div>
+          <script>
+            var map;
+            function initMap() {
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 15
+              });
+
+              var geocoder = new google.maps.Geocoder();
+              geocodeAddress(geocoder, map);
+            }
+
+            function geocodeAddress(geocoder, resultsMap) {
+              var address = document.getElementById("map").getAttribute("data-address");
+              geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                  resultsMap.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                  });
+                } else {
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
+              });
+            }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYrb99vk7KQRzD2Je2fFf43WF9OfXXsq8&callback=initMap" async defer></script>
+          <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMIcGShj81KQ_i-LGIst1gD065dGflHuc&callback=initMap" async defer></script> -->
         </div>
         <div class="col-md-6">
           <h3 class="pink">Contact</h3>

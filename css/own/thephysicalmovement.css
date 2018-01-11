@@ -533,7 +533,8 @@ label#wrong-signup {
   cursor:auto;
 }
 
-.fa-star:hover {
+.fa-star:hover,
+.fa-star-o:hover {
   cursor: pointer;
 }
 

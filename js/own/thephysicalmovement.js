@@ -165,3 +165,49 @@ function toggleClass(classNameRemove, classNameAdd) {
   $('.' + classNameRemove).toggleClass(classNameAdd);
   $('.' + classNameRemove).toggleClass(classNameRemove);
 }
+
+function setFavorite(element, centreId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "../php/ajaxcalls.php?fun_name=setFavorite&centre_id=" + centreId, true);
+  xhttp.send();
+
+  toggleMouseEvent(element);
+
+  element.onclick = function onclick(event) {
+    unsetFavorite(element, centreId);
+  }
+}
+
+function unsetFavorite(element, centreId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // alert(centreId);
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "../php/ajaxcalls.php?fun_name=unsetFavorite&centre_id=0", true);
+  xhttp.send();
+
+  toggleMouseEvent(element);
+
+  element.onclick = function onclick(event) {
+    setFavorite(element, centreId);
+  }
+
+  var sql = "UPDATE `users` SET `CommunityCentre_Id`= 0 WHERE `users`.`User_Id` = 1;"
+}
+
+function toggleMouseEvent(element) {
+  console.log(element.onclick);
+  var oldMouseoverFun = element.onmouseover;
+  var oldMouseoutFun = element.onmouseout;
+
+  element.onmouseover = oldMouseoutFun;
+  element.onmouseout = oldMouseoverFun;
+}

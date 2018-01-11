@@ -18,7 +18,6 @@ require_once("../libs/php-login-minimal-master/classes/Login.php");
 // create a login object. when this object is created, it will do all login/logout stuff automatically
 // so this single line handles the entire login process. in consequence, you can simply ...
 $login = new Login();
-// $login->doLogout();
 
 $relative_filename = $_SERVER["PHP_SELF"];
 $last_slash_index = strrpos( $_SERVER["PHP_SELF"], "/" );
@@ -26,8 +25,6 @@ $path = substr( $relative_filename, 0,  $last_slash_index + 1);
 $filename_with_extension = substr( $relative_filename, $last_slash_index + 1);
 $extension_index = strpos( $filename_with_extension, ".php" );
 $filename = substr( $filename_with_extension, 0, $extension_index);
-// print($filename);
-
 ?>
 <!DOCTYPE html>
 <html class="skrollr skrollr-desktop">
