@@ -162,15 +162,22 @@ function logout() {
 }
 
 function toggleClass(classNameRemove, classNameAdd) {
-  $('.' + classNameRemove).toggleClass(classNameAdd);
-  $('.' + classNameRemove).toggleClass(classNameRemove);
+  setTimeout(function () {
+    $('.' + classNameRemove).toggleClass(classNameAdd);
+    $('.' + classNameRemove).toggleClass(classNameRemove);
+  }, 250);
+
+
 }
 
 function setFavorite(element, centreId) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+      // console.log(this.responseText);
+      var centreName = document.getElementById("centre-name");
+      centreName = $.trim(centreName.textContent);
+      snackbar(centreName + " is now your favorite centre.");
     }
   };
   xhttp.open("GET", "../php/ajaxcalls.php?fun_name=setFavorite&centre_id=" + centreId, true);
@@ -187,8 +194,10 @@ function unsetFavorite(element, centreId) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      // alert(centreId);
-      console.log(this.responseText);
+      // console.log(this.responseText);
+      var centreName = document.getElementById("centre-name");
+      centreName = $.trim(centreName.textContent);
+      snackbar(centreName + " is no longer your favorite centre.");
     }
   };
   xhttp.open("GET", "../php/ajaxcalls.php?fun_name=unsetFavorite&centre_id=0", true);
@@ -210,4 +219,12 @@ function toggleMouseEvent(element) {
 
   element.onmouseover = oldMouseoutFun;
   element.onmouseout = oldMouseoverFun;
+}
+
+function snackbar(content) {
+    var x = document.getElementById("snackbar");
+    var centreName = document.getElementById("centre-name");
+    x.textContent = content;
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);
 }

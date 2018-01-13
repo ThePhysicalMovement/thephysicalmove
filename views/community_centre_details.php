@@ -51,7 +51,7 @@
   <section class="recreation-centres mb-80">
     <div class="container">
 
-      <h2><?php echo $centre["Name"] ?>
+      <h2 id="centre-name"><?php echo $centre["Name"] ?>
         <?php if ($login->isUserLoggedIn()) : ?>
           &emsp;
           <?php if ($favorite == $centre_id) : ?>
@@ -64,9 +64,10 @@
         Adam Beck Community Centre is a shared use facility. We offer fun filled programs for all ages including birthday parties packages & community special events. Also, there is limited space available for community group & private permits.
       </p>-->
 
+      <div id="snackbar"></div>
     </div>
   </section>
-  
+
   <section class="information mb-80">
     <div class="container">
       <div class="row">
@@ -94,7 +95,7 @@
                     position: results[0].geometry.location
                   });
                 } else {
-                  alert('Geocode was not successful for the following reason: ' + status);
+                  console.log('Geocode was not successful for the following reason: ' + status);
                 }
               });
             }
@@ -130,22 +131,11 @@
             </h5>
           </div>
 
-          <?php
-
-            // $program = $programs->fetch_assoc();
-            // print_r($program);
-            // print("<br />");
-            // print("ProgramType = " . $program["Name"] . "<br />");
-            // print("Start time = " . get_time($program["StartTime"]) . "<br />");
-            // print("Today is " . get_weekday($program["StartDate"]) . "<br />"); // fix if wrong date type
-
-          ?>
-
           <div id="programs-body" class="collapse show" role="tabpanel" aria-labelledby="programs-header" data-parent="#accordion">
             <div class="card-body">
-              <div class="alert alert-primary text-center" role="alert">
+              <!-- <div class="alert alert-primary text-center" role="alert">
                 <strong>Info:</strong> Open until September 3
-              </div>
+              </div> -->
               <table id="week1" class="table table-striped" style="margin-bottom: 0;">
                 <thead>
                   <tr>
@@ -158,6 +148,7 @@
                     <th>Thursday</th>
                     <th>Friday</th>
                     <th>Saturday</th>
+                    <th></th>
                     <!-- <th><button class="btn-no-style"><i class="fa fa-caret-right"></i></button></th> -->
                   </tr>
                 </thead>
@@ -187,14 +178,14 @@
                         $thProgram = new DOMElement('th');
 
                         $weekday_list = array();
-                        for ($i = 0; $i < 7; $i++) {
+                        for ($i = 0; $i < 8; $i++) {
                           array_push($weekday_list, new DOMElement('td'));
                         }
 
                         $dom->appendChild($tr);
                         $tr->appendChild($thProgram);
 
-                        for ($i = 0; $i < 7; $i++) {
+                        for ($i = 0; $i < 8; $i++) {
                           $tr->appendChild($weekday_list[$i]);
                         }
                         $pos = strpos($program["Name"], "(");
@@ -211,6 +202,17 @@
                         else {
                           $thProgram->appendChild(new DOMText($program["Name"]));
                         }
+                        $tooltip = new DOMElement('div');
+                        $weekday_list[7]->appendChild($tooltip);
+                        $i_tag = new DOMElement('i');
+                        $tooltip->appendChild($i_tag);
+                        $tooltip_text = new DOMElement('span');
+                        $tooltip->appendChild($tooltip_text);
+                        $text = new DOMText($program["Description"]);
+                        $tooltip_text->appendChild($text);
+                        $tooltip->setAttribute('class', 'own-tooltip');
+                        $i_tag->setAttribute('class', 'fa fa-question-circle');
+                        $tooltip_text->setAttribute('class', 'tooltiptext tooltip-left');
 
                         $event_day = get_weekday($program["StartDate"]);
                         $span = new DOMElement('span');

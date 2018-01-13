@@ -52,7 +52,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
   <link rel="stylesheet" href="../css/own/thephysicalmovement.css" />
   <!-- <link rel="stylesheet" href="../css/bootstrap4/bootstrap.min.css" /> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-  <link rel="stylesheet" href="../css/animate.css" />
+  <!-- <link rel="stylesheet" href="../css/animate.css" /> -->
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
@@ -80,12 +80,6 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
               <li class="nav-item <?php if ( $filename == "community_centre_repository" ||  $filename == "community_centre_details") : ?>active<?php endif ?>">
                 <a class="nav-link" href="community_centre_repository.php">Community Center Repository <?php if ( $filename == "community_centre_repository" ) : ?><span class="sr-only">(current)</span><?php endif ?></a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="contactPage.html">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="aboutPage.html">About</a>
-              </li> -->
               <?php if ( !$login->isUserLoggedIn() ) : ?>
               <li class="nav-item">
                 <a class="nav-link" href="loginPage.html" data-toggle="modal" data-target="#loginModalCenter">Log in</a>
