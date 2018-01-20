@@ -146,10 +146,13 @@ function toggleModal(hideModalId, showModalId) {
 function logout() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
+    // alert(this.readyState + " - " + this.status);
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+      // console.log(this.responseText);
       var base = document.getElementsByTagName('base')[0];
       var redirectURL = base.href + 'homepage.php';
+      // alert(redirectURL);
+      // alert(this.responseText);
       window.location.replace(redirectURL);
     }
   };
@@ -166,8 +169,6 @@ function toggleClass(classNameRemove, classNameAdd) {
     $('.' + classNameRemove).toggleClass(classNameAdd);
     $('.' + classNameRemove).toggleClass(classNameRemove);
   }, 250);
-
-
 }
 
 function setFavorite(element, centreId) {

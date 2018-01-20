@@ -1,6 +1,7 @@
-  <?php require('../include/header.php'); ?>
-
   <?php
+
+  require_once('../include/header.php');
+
   $servername = DB_HOST;
   $database   = DB_NAME;
   $username   = DB_USER;
@@ -48,7 +49,7 @@
   $conn->close();
   ?>
 
-  <section class="recreation-centres mb-80">
+  <section class="recreation-centres mt-200 mb-80">
     <div class="container">
 
       <h2 id="centre-name"><?php echo $centre["Name"] ?>

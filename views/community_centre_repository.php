@@ -1,6 +1,45 @@
-  <?php require('../include/header.php') ?>
+  <?php
 
-  <section class="recreation-centres">
+  require_once('../include/header.php');
+
+  $servername = DB_HOST;
+  $database   = DB_NAME;
+  $username   = DB_USER;
+  $password   = DB_PASS;
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $database);
+
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection to the database failed: " . $conn->connect_error);
+  }
+
+  // if (isset($_SESSION["user_name"])) {
+  if ($login->isUserLoggedIn()) {
+    $userIdSql = "SELECT `User_Id` FROM `users` WHERE `users`.`user_name` = '" . $_SESSION["user_name"] . "'";
+    $userId = $conn->query($userIdSql);
+    $userId = $userId->fetch_assoc()["User_Id"];
+    $sql = "SELECT * FROM `communitycentre` INNER JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_id` = " . $userId . ";";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      $favorite = $result->fetch_assoc();
+    }
+    else {
+      $favorite = false;
+    }
+  }
+  else {
+    $userId = 0;
+    $favorite = false;
+  }
+
+  $sql = "SELECT `communitycentre`.`CommunityCentre_Id`, `Name`, `Address`, `PhoneNumber`, `WebsiteURL` FROM `communitycentre` LEFT JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_Id` IS NULL OR `users`.`User_Id` != " . $userId . ";";
+  $result = $conn->query($sql);
+  $conn->close();
+  ?>
+
+  <section class="recreation-centres mt-200">
     <div class="container">
       <h2 class="text-center">Recreation Centres</h2>
       <div id="search-centres" class="row">
@@ -13,44 +52,6 @@
           </div>
         </div>
       </div>
-
-      <?php
-        $servername = DB_HOST;
-        $database   = DB_NAME;
-        $username   = DB_USER;
-        $password   = DB_PASS;
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection to the database failed: " . $conn->connect_error);
-        }
-
-        // if (isset($_SESSION["user_name"])) {
-        if ($login->isUserLoggedIn()) {
-          $userIdSql = "SELECT `User_Id` FROM `users` WHERE `users`.`user_name` = '" . $_SESSION["user_name"] . "'";
-          $userId = $conn->query($userIdSql);
-          $userId = $userId->fetch_assoc()["User_Id"];
-          $sql = "SELECT * FROM `communitycentre` INNER JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_id` = " . $userId . ";";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-            $favorite = $result->fetch_assoc();
-          }
-          else {
-            $favorite = false;
-          }
-        }
-        else {
-          $userId = 0;
-          $favorite = false;
-        }
-
-        $sql = "SELECT `communitycentre`.`CommunityCentre_Id`, `Name`, `Address`, `PhoneNumber`, `WebsiteURL` FROM `communitycentre` LEFT JOIN `users` ON `communitycentre`.`CommunityCentre_Id` = `users`.`CommunityCentre_Id` WHERE `users`.`User_Id` IS NULL OR `users`.`User_Id` != " . $userId . ";";
-        $result = $conn->query($sql);
-        $conn->close();
-      ?>
 
       <table id="recreation-centres-table" class="table table-striped">
         <thead>

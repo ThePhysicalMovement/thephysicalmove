@@ -235,7 +235,7 @@ footer p {
 
 /* Community centre repository */
 /* Start section recreation centre */
-section.recreation-centres {
+section.mt-200 {
   margin-top: 200px;
   color: #585457;
 }
@@ -427,6 +427,10 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
   margin-bottom: 80px;
 }
 
+.mb-40 {
+  margin-bottom: 40px;
+}
+
 .card a,
 .card i.fa {
   color: #FFF;
@@ -435,6 +439,13 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
 .card a:hover {
   color: #FFF;
   text-decoration: none;
+}
+
+.card.bg-success,
+.card.bg-success *  {
+  color: #FFF;
+  background-color: #28a745;
+  opacity: 0.7;
 }
 
 .card-list {
@@ -484,7 +495,8 @@ body .modal-style.modal-dialog .modal-title {
 body .modal-style.modal-dialog form .form-control[type="text"],
 body .modal-style.modal-dialog form .form-control[type="email"],
 body .modal-style.modal-dialog form .form-control[type="phone"],
-body .modal-style.modal-dialog form .form-control[type="password"] {
+body .modal-style.modal-dialog form .form-control[type="password"],
+body .modal-style.modal-dialog form .form-control[type="date"] {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -622,6 +634,13 @@ a.dropdown-toggle::after {
   vertical-align: 0.5em;
 }
 
+.dropdown-menu.dropdown-menu-right {
+  left: auto;
+  right: 0;
+  width: 250px;
+  overflow: hidden;
+}
+
 .modal-content .left-pane {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -701,7 +720,6 @@ a.dropdown-toggle::after {
 div.own-tooltip {
     position: relative;
     display: inline-block;
-    /* opacity: 1 !important; */
 }
 
 div.own-tooltip .tooltiptext {
@@ -740,4 +758,159 @@ div.own-tooltip .tooltiptext {
 .own-tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+section.user-grid {
+  /* background-color: #C4CBDD; */
+  /* background-color: #DAE0EA; */
+  background-color: #879abc42;
+  padding-top: 60px;
+}
+
+.profile-card {
+  position: relative;
+  background-color: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 5px;
+  height: 300px;
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  box-shadow: 15px 15px 15px #879abc33;
+}
+
+section.user-grid .col-md-3 {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.profile-card img {
+  width: 40%;
+  border-radius: 50%;
+  border: 2px solid lightgray;
+  margin-bottom: 20px;
+}
+
+.profile-card .profile-info {
+
+}
+
+h5.card-status {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.profile-card hr {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-card a.send-message {
+  transition: all 0.5s;
+}
+
+.profile-card a.send-message:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+.fa-circle.online {
+  color: #47CD30;
+}
+
+.fa-circle-o.offline {
+  color: #47CD30;
+}
+
+.fa-twitter {
+  color: #00ACED;
+}
+
+.fa-facebook,
+.fa-facebook-square {
+  color: #3B5998;
+}
+
+.fa-pinterest {
+  color: #A82023;
+}
+
+.profile-card .fa-paper-plane {
+  position: relative;
+  top: 2px;
+  font-size: 13px;
+}
+
+body .nav.nav-tabs .nav-link.active {
+  background-color: #E1E4ED !important;
+  border-bottom-color: transparent !important;
+  font-weight: 600;
+}
+
+body .nav.nav-tabs .nav-link {
+  color: #212529;
+}
+
+.btn-outline-secondary {
+  color: #585457 !important;
+}
+
+.btn-outline-secondary:hover {
+  color: #FFF !important;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #879abc;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #879abc;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

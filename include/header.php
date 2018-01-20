@@ -82,30 +82,35 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
               </li>
               <?php if ( !$login->isUserLoggedIn() ) : ?>
               <li class="nav-item">
-                <a class="nav-link" href="loginPage.html" data-toggle="modal" data-target="#loginModalCenter">Log in</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModalCenter">Log in</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="signupPage.html" data-toggle="modal" data-target="#signupModalCenter">Sign-up</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModalCenter">Sign-up</a>
               </li>
-              <?php elseif ( $login->isUserLoggedIn() ) : ?>
-                <li class="nav-item">
-                  <a class="nav-link" href="" data-toggle="modal" data-target="#signupModalCenter">Social</a>
+              <?php else : ?>
+                <li class="nav-item <?php if ( $filename == "social" ) : ?>active<?php endif ?>">
+                  <a class="nav-link" href="social.php">Social</a>
                 </li>
               <?php endif ?>
             </ul>
             <?php if ( $login->isUserLoggedIn() ) : ?>
             <div class="dropdown show">
               <a class="dropdown-toggle" href="#" role="button" id="profile-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></a>
-              <div class="dropdown-menu" aria-labelledby="profile-link">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-link">
                 <div id="user-information" class="dropdown-item">
-                  <h5>Profile information</h5>
-                  <p><?php echo 'David Fontes' ?></p>
-                  <p><?php echo 'daveTheMan' ?></p>
-                  <p><?php echo 'random@emailfor.you' ?></p>
-                  <p><?php echo '987 876-1234' ?></p>
+                  <h6><i class="fa fa-user"></i>&emsp;Profile information</h6>
+                  <p><?php echo $_SESSION["user_fullname"] ?></p>
+                  <p><?php echo $_SESSION["user_name"] ?></p>
+                  <?php if (isset($_SESSION["user_email"])) : ?>
+                    <p><?php echo $_SESSION["user_email"] ?></p>
+                  <?php endif ?>
+                  <?php if (isset($_SESSION["user_phone"])) : ?>
+                    <p><?php echo $_SESSION["user_phone"] ?></p>
+                  <?php endif ?>
                 </div>
+                <a class="dropdown-item" href="profile.php"><i class="fa fa-pencil"></i>&emsp;Edit profile</a>
                 <div class="dropdown-divider" href="#"></div>
-                <a class="dropdown-item" href="" onclick="logout()">Log out</a>
+                <a class="dropdown-item" href="#" onclick="logout()"><i class="fa fa-sign-out"></i>&emsp;Log out</a>
               </div>
             </div>
             <?php endif ?>
@@ -194,14 +199,16 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
                   <input id="signup-phone" class="form-control" type="phone" name="user_phone" placeholder="Phone number (Optional)" autocomplete="off" />
                 </div>
                 <div class="form-group">
+                  <input id="signup-date" class="form-control" type="date" name="user_date" placeholder="Phone number" autocomplete="off" />
+                </div>
+                <div class="form-group">
                   <input id="signup-password" class="form-control" type="password" name="user_password_new" placeholder="Password" autocomplete="off" title="Maximum of 20 characters" />
                 </div>
                 <div class="form-group">
                   <input id="signup-password-confirm" class="form-control" type="password" name="user_password-repeat" placeholder="Confirm password" autocomplete="off" />
                 </div>
-                <div class="form-group">
-                  <label id="wrong-signup"></label>
-                </div>
+                <label id="wrong-signup"></label>
+                <!-- <div class="form-group"></div> -->
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btn-submit-form">Sign Up</button>

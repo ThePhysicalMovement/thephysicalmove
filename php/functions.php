@@ -5,7 +5,7 @@ function get_weekday($strdate) {
   }
 }
 
-function get_time($time, $first = true) {
+function get_time($time, $first = false) {
   if ( strlen($time) == 8 ) {
     $time24h = substr($time, 0, 5);
     $hour = substr($time24h, 0, 2);
