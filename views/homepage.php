@@ -140,18 +140,3 @@
   </section>
 
   <?php require ('../include/footer.php') ?>
-<!--
-  <footer>
-    <div class="container">
-      <p>Copyright &copy; 2017 So-PhyZ - All Rights Reserved.</p>
-    </div>
-  </footer>
-
-  <script type="text/javascript">
-  	skrollr.init({
-  		smoothScrolling: false
-  	});
-	</script>
-
-</body>
-</html> -->

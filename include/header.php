@@ -1,6 +1,7 @@
 <?php
-require('../php/functions.php');
-require('../config/db.php');
+require_once('../php/functions.php');
+require_once('../php/queries.php');
+require_once('../config/db.php');
 
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
@@ -110,7 +111,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
                 </div>
                 <a class="dropdown-item" href="profile.php"><i class="fa fa-pencil"></i>&emsp;Edit profile</a>
                 <div class="dropdown-divider" href="#"></div>
-                <a class="dropdown-item" href="#" onclick="logout()"><i class="fa fa-sign-out"></i>&emsp;Log out</a>
+                <a class="dropdown-item" href="#" onclick="logout(event)"><i class="fa fa-sign-out"></i>&emsp;Log out</a>
               </div>
             </div>
             <?php endif ?>
@@ -220,3 +221,5 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
       </div>
     </div>
   </div>
+
+  <script>console.log(document.cookie);</script>

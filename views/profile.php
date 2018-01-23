@@ -22,9 +22,11 @@ if ($login->isUserLoggedIn()) {
   if ($result->num_rows > 0) {
     $user = $result->fetch_object();
     // print_r($user);
-
+  }
+  if (!empty($_POST)) {
+    $visible_change = (isset($_POST["visible"])) ? 1 : 0;
     $sql = "UPDATE `users` SET `user_fullname` = '" . $_POST["fullname"] . "', `user_email` = '" . $_POST["email"] . "', `user_phone` = '" . $_POST["phone"] . "', `user_twitterURL` = '" . $_POST["twitterURL"] . "',
-    `user_facebookURL` = '" . $_POST["facebookURL"] . "', `user_pinterestURL` = '" . $_POST["pinterestURL"] . "', `user_visible` = '" . $_POST["visible"] . "';";
+    `user_facebookURL` = '" . $_POST["facebookURL"] . "', `user_pinterestURL` = '" . $_POST["pinterestURL"] . "', `user_visible` = " . $visible_change . " WHERE user_name = '" . $user->user_name . "';";
     $result = $conn->query($sql);
     // print($sql);
   }
@@ -55,9 +57,9 @@ if ($login->isUserLoggedIn()) {
     $changes = true;
     $user->user_pinterestURL = $_POST["pinterestURL"];
   }
-  if (isset($_POST["visible"]) && $_POST["visible"] != $user->user_visible) {
+  if ($visible_change != $user->user_visible) {
     $changes = true;
-    $user->user_visible = $_POST["visible"];
+    $user->user_visible = $visible_change;
   }
 }
 else {
@@ -67,7 +69,7 @@ else {
 $conn->close();
 ?>
 
-<section class="mt-200 mb-80">
+<section class="profile-information mt-200 mb-80">
   <div class="container">
     <h2 class="text-center">Profile</h2>
     <h5 class="text-center mb-80">Add or edit your personal information.</h5>
@@ -90,7 +92,7 @@ $conn->close();
           <div class="form-group row">
             <label class="col-sm-2 col-form-label"><i style="color: #585457;" class="fa fa-address-card"></i>&emsp;Full name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="fullname" value="<?php echo $user->user_fullname; ?>" />
+              <input type="text" class="form-control" name="fullname" value="<?php echo $user->user_fullname; ?>" pattern=".{3,}" required title="3 characters minimum"/>
             </div>
           </div>
           <div class="form-group row">

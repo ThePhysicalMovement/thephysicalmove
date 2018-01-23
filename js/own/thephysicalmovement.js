@@ -143,16 +143,13 @@ function toggleModal(hideModalId, showModalId) {
   setTimeout(function () { $(showModalId).modal('show') }, 200);
 }
 
-function logout() {
+function logout(ev) {
+  ev.preventDefault();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    // alert(this.readyState + " - " + this.status);
     if (this.readyState == 4 && this.status == 200) {
-      // console.log(this.responseText);
       var base = document.getElementsByTagName('base')[0];
       var redirectURL = base.href + 'homepage.php';
-      // alert(redirectURL);
-      // alert(this.responseText);
       window.location.replace(redirectURL);
     }
   };

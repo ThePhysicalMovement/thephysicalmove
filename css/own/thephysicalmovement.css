@@ -440,13 +440,13 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
   color: #FFF;
   text-decoration: none;
 }
-
+/*
 .card.bg-success,
 .card.bg-success *  {
   color: #FFF;
   background-color: #28a745;
   opacity: 0.7;
-}
+} */
 
 .card-list {
   list-style: none;
@@ -463,6 +463,19 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
   width: 20px;
 
   transition: transform 0.25s;
+}
+
+.social-icon {
+  display: inline-block;
+  transition: transform 0.65s;
+}
+
+.social-icon:hover {
+  transform: rotateZ(360deg);
+}
+
+.no-decoration:hover {
+  text-decoration: none;
 }
 
 .btn-no-style:hover {

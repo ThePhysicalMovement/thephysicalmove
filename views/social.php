@@ -32,6 +32,11 @@ else {
 
 
 $conn->close();
+
+$logged_user = get_logged_user();
+$users = get_users_except($logged_user->user_name);
+print_r($users->fetch_assoc());
+$users->data_seek(0);
 ?>
 
 <section class="mt-200 mb-80">
@@ -55,10 +60,10 @@ $conn->close();
   <div class="container">
     <ul class="nav nav-tabs nav-fill" role="tablist">
       <li class="nav-item">
-        <a id="all-tab" class="nav-link active" href="#all-users" data-toggle="tab" role="tab">All</a>
+        <a id="all-tab" class="nav-link active" href="#all-users" data-toggle="tab" role="tab"><i class="fa fa-globe">&emsp;</i>All</a>
       </li>
       <li class="nav-item">
-        <a id="address-book-tab" class="nav-link" href="#address-book" data-toggle="tab" role="tab">Address book</a>
+        <a id="address-book-tab" class="nav-link" href="#address-book" data-toggle="tab" role="tab"><i class="fa fa-address-book">&emsp;</i>Address book</a>
       </li>
     </ul>
   </div>
@@ -83,23 +88,51 @@ $conn->close();
     </div>
 
     <div class="row">
+      <?php while ($user = $users->fetch_assoc()) : ?>
+
       <div class="col-md-3">
         <div class="profile-card">
           <h5 class="card-status"><i class="fa fa-circle online"></i> Online</h5>
           <img src="http://lorempixel.com/400/400/sports/8" />
           <div class="profile-info">
-            <span><strong>Wade Wilson</strong></span><br />
-            <span style="display: block; margin-bottom: 10px;">my@email.com</span>
-            <span><i class="fa fa-twitter"></i></span>&nbsp;
-            <span><i class="fa fa-facebook-square"></i></span>&nbsp;
-            <span><i class="fa fa-pinterest"></i></span>&nbsp;
+            <span><strong><?php echo $user["user_fullname"]; ?></strong></span><br />
+            <span style="display: block; margin-bottom: 10px;">
+              <?php if (strlen($user["user_email"])) : ?>
+                <?php echo $user["user_email"]; ?>
+              <?php else : ?>
+                &nbsp;
+            <?php endif ?>
+            </span>
+            <?php if (strlen($user["user_twitterURL"])) : ?>
+              <span class="social-icon">
+                <a class="no-decoration" href="<?php echo $user["user_twitterURL"]; ?>">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </span>&nbsp;
+            <?php endif ?>
+            <?php if (strlen($user["user_facebookURL"])) : ?>
+              <span class="social-icon">
+                <a class="no-decoration" href="<?php echo $user["user_facebookURL"]; ?>">
+                  <i class="fa fa-facebook-square"></i>
+                </a>
+              </span>&nbsp;
+            <?php endif ?>
+            <?php if (strlen($user["user_pinterestURL"])) : ?>
+              <span class="social-icon">
+                <a class="no-decoration" href="<?php echo $user["user_pinterestURL"]; ?>">
+                  <i class="fa fa-pinterest"></i>
+                </a>
+              </span>&nbsp;
+            <?php endif ?>
             <span title="Add to your address book."><i class="fa fa-address-book"></i></span>
           </div>
           <hr />
           <a class="send-message">Send message <i class="fa fa-paper-plane"></i></a>
         </div>
       </div>
-      <div class="col-md-3">
+
+    <?php endwhile ?>
+      <!-- <div class="col-md-3">
         <div class="profile-card">
           <h5 class="card-status"><i class="fa fa-circle-o offline"></i> Offline</h5>
           <img src="http://lorempixel.com/400/400/sports/3" />
@@ -158,7 +191,7 @@ $conn->close();
           <hr />
           <a>Send message <i class="fa fa-paper-plane"></i></a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 <!-- </section> -->
