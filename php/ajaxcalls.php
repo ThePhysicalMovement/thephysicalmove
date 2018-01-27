@@ -19,7 +19,7 @@ require_once("../libs/php-login-minimal-master/classes/Login.php");
 // so this single line handles the entire login process. in consequence, you can simply ...
 $login = new Login();
 
-print_r($_SESSION);
+// print_r($_SESSION);
 
 if ( !empty($_GET) && isset($_GET["fun_name"]) ) {
 

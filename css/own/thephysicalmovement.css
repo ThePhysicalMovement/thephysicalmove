@@ -465,6 +465,12 @@ table.table.table-striped > tbody > tr:nth-of-type(even) {
   transition: transform 0.25s;
 }
 
+#signup-recaptcha > .grecaptcha-badge {
+  display: none;
+  /* margin: auto; */
+  /* transform: scale(0.85); */
+}
+
 .social-icon {
   display: inline-block;
   transition: transform 0.65s;

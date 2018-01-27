@@ -11,6 +11,31 @@ $( document ).ready(function() {
       document.getElementById('login-password').value = localStorage.password;
       document.getElementById('remember-me').checked = true;
   }
+
+  // Condition reCAPTCHA
+  if ($('#signup-recaptcha').length) {
+    setTimeout(function () {
+      signupWidgetId = grecaptcha.render('signup-recaptcha', {
+        'sitekey' : '6LeGtEIUAAAAALCBGcS43KmqgNuFhs0yyZxW5QSR',
+        'callback' : onSubmitSignup,
+        'size' : 'invisible',
+        'badge' : 'inline'
+      });
+    }, 1000);
+  }
+  // FORM
+  // if ($('#signup-recaptcha').length) {
+  //   setTimeout(function () {
+  //     signupWidgetId = grecaptcha.render('signup-recaptcha', {
+  //       'sitekey' : '6LeGtEIUAAAAALCBGcS43KmqgNuFhs0yyZxW5QSR',
+  //       'callback' : onSubmit,
+  //       'size' : 'invisible',
+  //       'badge' : 'inline'
+  //     });
+  //   }, 1000);
+  // }
+
+
 });
 
 function filterTable(input, table) {
@@ -101,17 +126,52 @@ function authenticateAjax() {
 
 function register(ev) {
   ev.preventDefault();
-  registerAjax();
+  validation();
 }
 
-function registerAjax() {
+function validation() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if (this.responseText == 'Success') {
+        grecaptcha.execute();
+      }
+      else {
+        document.getElementById('wrong-signup').style.color = '#C42420';
+        document.getElementById('wrong-signup').innerHTML = this.responseText;
+      }
+    }
+  };
+  xhttp.open("POST", "../php/signupValidation.php", true);
+  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  var fullname = document.getElementById('signup-fullname').value;
+  var username = document.getElementById('signup-username').value;
+  var email = document.getElementById('signup-email').value;
+  var phone = document.getElementById('signup-phone').value;
+  var password = document.getElementById('signup-password').value;
+  var passwordConfirm = document.getElementById('signup-password-confirm').value;
+  var str = 'validate=true';
+  str += '&user_fullname=' + encodeURIComponent(fullname);
+  str += '&user_name=' + encodeURIComponent(username);
+  str += '&user_email=' + encodeURIComponent(email);
+  str += '&user_phone=' + encodeURIComponent(phone);
+  str += '&user_password_new=' + encodeURIComponent(password);
+  str += '&user_password_repeat=' + encodeURIComponent(passwordConfirm);
+
+  xhttp.send(str);
+}
+
+function registerAjax(token) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText.length >= 14 && this.responseText.substring(0, 15) == 'Congratulations') {
+        // Success
         document.getElementById('wrong-signup').style.color = '#518005';
       }
       else {
+        // Unsuccess
         document.getElementById('wrong-signup').style.color = '#C42420';
       }
       document.getElementById('wrong-signup').innerHTML = this.responseText;
@@ -133,6 +193,7 @@ function registerAjax() {
   str += '&user_phone=' + encodeURIComponent(phone);
   str += '&user_password_new=' + encodeURIComponent(password);
   str += '&user_password_repeat=' + encodeURIComponent(passwordConfirm);
+  str += '&response=' + encodeURIComponent(token);
 
   // console.log(str);
   xhttp.send(str);
@@ -175,7 +236,12 @@ function setFavorite(element, centreId) {
       // console.log(this.responseText);
       var centreName = document.getElementById("centre-name");
       centreName = $.trim(centreName.textContent);
+      var eventFun = element.onclick
+      element.onclick = null;
       snackbar(centreName + " is now your favorite centre.");
+      setTimeout(function () {
+        element.onclick = eventFun;
+      }, 4000);
     }
   };
   xhttp.open("GET", "../php/ajaxcalls.php?fun_name=setFavorite&centre_id=" + centreId, true);
@@ -195,7 +261,12 @@ function unsetFavorite(element, centreId) {
       // console.log(this.responseText);
       var centreName = document.getElementById("centre-name");
       centreName = $.trim(centreName.textContent);
+      var eventFun = element.onclick
+      element.onclick = null;
       snackbar(centreName + " is no longer your favorite centre.");
+      setTimeout(function () {
+        element.onclick = eventFun;
+      }, 4000);
     }
   };
   xhttp.open("GET", "../php/ajaxcalls.php?fun_name=unsetFavorite&centre_id=0", true);

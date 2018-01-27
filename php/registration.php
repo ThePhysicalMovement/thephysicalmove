@@ -13,12 +13,43 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 // load the login class
 require_once("../libs/php-login-minimal-master/classes/Registration.php");
 
-$registration = new Registration();
-if ( !empty($registration->messages) && empty($registration->errors) ) {
+$recaptcha_response = $_POST["response"];
+$fields_string = "";
+$fields = array(
+  "secret" => "6LeGtEIUAAAAAHKotuxT8km0v3-3-sXBF50VG-6L",
+  "response" => $recaptcha_response
+);
+
+foreach ($fields as $key => $value) {
+  $fields_string .= $key . "=" . $value . "&";
+}
+
+$fields_string = rtrim($fields_string, "&");
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_POST, count($fields));
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+$obj = json_decode($result);
+
+if ( $obj->success ) {
+  $registration = new Registration();
+  if ( !empty($registration->messages) && empty($registration->errors) ) {
     print("Congratulations, your account have been created successfully.<br />You can now login.");
+  }
+  else {
+    print($registration->errors[0]);
+  }
 }
 else {
-  print($registration->errors[0]);
+  print("reCAPTCHA error: Check to make sure your keys match the registered domain and are in the correct locations.");
 }
 
 ?>

@@ -60,6 +60,7 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.js"></script>
   <script src="../js/bootstrap4/bootstrap.min.js"></script>
   <script src="../js/own/thephysicalmovement.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <!-- Parallax Lib -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
@@ -200,15 +201,16 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
                   <input id="signup-phone" class="form-control" type="phone" name="user_phone" placeholder="Phone number (Optional)" autocomplete="off" />
                 </div>
                 <div class="form-group">
-                  <input id="signup-date" class="form-control" type="date" name="user_date" placeholder="Phone number" autocomplete="off" />
+                  <input id="signup-date" class="form-control" type="date" name="user_date" placeholder="Birth date" autocomplete="off" required />
                 </div>
                 <div class="form-group">
-                  <input id="signup-password" class="form-control" type="password" name="user_password_new" placeholder="Password" autocomplete="off" title="Maximum of 20 characters" />
+                  <input id="signup-password" class="form-control" type="password" name="user_password_new" placeholder="Password" autocomplete="off" title="Maximum of 20 characters" required />
                 </div>
                 <div class="form-group">
-                  <input id="signup-password-confirm" class="form-control" type="password" name="user_password-repeat" placeholder="Confirm password" autocomplete="off" />
+                  <input id="signup-password-confirm" class="form-control" type="password" name="user_password-repeat" placeholder="Confirm password" autocomplete="off" required />
                 </div>
                 <label id="wrong-signup"></label>
+                <div id="signup-recaptcha"></div>
                 <!-- <div class="form-group"></div> -->
               </div>
               <div class="modal-footer">
@@ -222,4 +224,11 @@ $filename = substr( $filename_with_extension, 0, $extension_index);
     </div>
   </div>
 
-  <script>console.log(document.cookie);</script>
+  <script>
+
+    console.log(document.cookie);
+
+    var onSubmitSignup = function(response) {
+      registerAjax(response);
+    }
+  </script>
